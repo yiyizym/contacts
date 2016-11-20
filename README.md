@@ -8,7 +8,7 @@
 
 under developing, it's just a demo now.
 
-# 进度
+## 进度
 - [x] 正确分类数据
 - [x] 点击索引跳转
 - [x] 顶栏显示

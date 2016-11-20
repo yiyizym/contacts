@@ -162,7 +162,8 @@
 
       function getTopbarElement(scroll_position){
         var i = 0;
-        while((i < positions.length) && scroll_position > positions[i].pos){
+        var gutter = 20;
+        while((i < positions.length) && scroll_position + gutter >= positions[i].pos){
           i ++;
         }
 
