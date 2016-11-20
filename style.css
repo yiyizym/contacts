@@ -1,0 +1,63 @@
+.hidden {
+  display: none!important;
+}
+
+.page {
+  height: 10000px;
+}
+.shortcuts_ctn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.shortcuts_ctn > a {
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #999;
+}
+input.search {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  outline: none;
+}
+.list {
+  position: relative;
+  padding: 0px;
+  list-style-type: none;
+}
+.list li {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border-top: 1px solid #eee;
+}
+.list li[id*=hook] {
+  height: 20px;
+  line-height: 20px;
+  background-color: #eee;
+  border-top: none;
+}
+.list li[id*=hook] + li {
+  border-top: none;
+}
+.list li.on_top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.search_result .list li {
+  border-top: none;
+  border-bottom: 1px solid #eee;
+}

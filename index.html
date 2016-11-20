@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name=”viewport” content=”initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0″>
+  <title>Contacts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    
+  </div>
+  <script>
+      var raw_data = ['banana','cat','egg','farmer','food','jeep','joke','lisa','low','jude','apple',1,'2','谭小生', '张中','李大哥','江东父老','福康安','陈云','宝玉','曹方','郑智','冯年过节','贾定春','罗生门','刘安','朱卫生','阿诚'];
+      var dict_map = parseData(raw_data);
+      generate_shortcuts(dict_map);
+      var list = generate_list(dict_map);
+      var ctn = generate_ctn();
+      ctn.querySelector('.all_result').appendChild(list);
+      document.querySelector('.page').appendChild(ctn);
+      function generate_shortcuts(map){
+        var items = [];
+        for(var key in map) {
+          if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
+            items.push(key);
+          }
+        }
+        var ctn = document.createElement('div');
+        ctn.classList.add('shortcuts_ctn');
+        items.forEach(function(item){
+          var text = document.createTextNode(item);
+          var a = document.createElement('a');
+          a.setAttribute('href', '#hook_' + item);
+          a.setAttribute('rel', 'internal');
+          a.appendChild(text);
+          ctn.appendChild(a);
+        });
+        document.body.appendChild(ctn);
+      }
+      function generate_list(map){
+        var former_key = null;
+        var list = document.createElement('ul');
+        list.classList.add('list');
+        for(var key in map) {
+          if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
+            var items = map[key];
+            items.forEach(function(item){
+              var text,li;
+              if(key != former_key){
+                text = document.createTextNode(key);
+                li = document.createElement('li');
+                li.classList.add('hooks');
+                li.setAttribute('id', 'hook_' + key);
+                li.appendChild(text);
+                list.appendChild(li);
+                former_key = key;
+              }
+              text = document.createTextNode(item);
+              li = document.createElement('li');
+              li.appendChild(text);
+              list.appendChild(li);
+            });
+          }
+        }
+        return list;
+      }
+      function generate_filtered_list(map, filter_str){
+        var list = document.createElement('ul');
+        list.classList.add('list');
+        var li;
+        for( var key in map){
+          if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
+            var items = map[key];
+            items.forEach(function(item){
+              if (String(item).match(filter_str)) {
+                li = document.createElement('li')
+                li.appendChild(document.createTextNode(item));
+                list.appendChild(li);
+              }
+            })
+          }
+        }
+        return list;
+      }
+      function generate_ctn(){
+        var ctn = document.createElement('div');
+        ctn.classList.add('container');
+        var input = document.createElement('input');
+        input.classList.add('search');
+        input.setAttribute('placeholder', '搜索');
+        ctn.appendChild(input);
+        var search_result = document.createElement('div');
+        search_result.classList.add('search_result');
+        ctn.appendChild(search_result);
+        var all_result = document.createElement('div');
+        all_result.classList.add('all_result');
+        ctn.appendChild(all_result);
+        return ctn;
+      }
+      function parseData(data){
+        var map = {};
+        var c = 'A'.charCodeAt();
+        for(; c <= 'Z'.charCodeAt(); c++ ){
+          map[String.fromCharCode(c)] = [];
+        }
+        map['#'] = [];
+        var first_char_upper;
+        data.forEach(function(item){
+          first_char_upper = getFirstUpperChar(item);
+          if (map.hasOwnProperty(first_char_upper)) {
+            map[first_char_upper].push(item);
+          } else {
+            map['#'].push(item);
+          }
+        });
+        return map;
+      }
+      function getFirstUpperChar(str){
+        string = String(str);
+        var c = string[0];
+        if (/[^\u4e00-\u9fa5]/.test(c)) {
+          return c.toUpperCase();
+        }
+        else {
+          return chineseToEnglish(c);
+        }
+      }
+      // copy from https://ruby-china.org/topics/29026
+      function chineseToEnglish(c){
+        var idx = -1;
+        var MAP = 'ABCDEFGHJKLMNOPQRSTWXYZ';
+        var boundaryChar = '驁簿錯鵽樲鰒餜靃攟鬠纙鞪黁漚曝裠鶸蜶籜鶩鑂韻糳';
+        if (!String.prototype.localeCompare) {
+          throw Error('String.prototype.localeCompare not supported.');
+        }
+        if (/[^\u4e00-\u9fa5]/.test(c)) {
+          return c;
+        }
+        for (var i = 0; i < boundaryChar.length; i++) {
+          if (boundaryChar[i].localeCompare(c, 'zh-CN-u-co-pinyin') >= 0) {
+            idx = i;
+            break;
+          }
+        }
+        return MAP[idx];
+      }
+      // get positions
+      var positions = [];
+      function getAllAnchorPositions(){
+        var anchors = document.querySelectorAll('.hooks');
+        anchors = [].slice.call(anchors);
+        anchors.forEach(function(anchor){
+          positions.push({
+            anchor: anchor,
+            pos: anchor.getBoundingClientRect().top
+          });
+        });
+      }
+      getAllAnchorPositions();
+      // get positions
+
+      function getTopbarElement(scroll_position){
+        var i = 0;
+        while((i < positions.length) && scroll_position > positions[i].pos){
+          i ++;
+        }
+
+        if (i == 0) {
+          return null;
+        }
+        else {
+          return positions[i-1].anchor;
+        }
+      }
+      // scroll optimization
+      // see https://developer.mozilla.org/en-US/docs/Web/Events/scroll
+      var last_known_scroll_position = 0;
+      var ticking = false;
+      var top_bar_element = null;
+      window.addEventListener('scroll', function(e){
+        last_known_scroll_position = window.scrollY;
+        if(!ticking) {
+          window.requestAnimationFrame(function(){
+            //do some thing here
+            
+            positions.forEach(function(item){
+              item.anchor.classList.remove('on_top');
+            });
+            top_bar_element = getTopbarElement(last_known_scroll_position);
+            top_bar_element && top_bar_element.classList.add('on_top');
+            ticking = false;
+          });
+        }
+        ticking = true;
+      });
+      document.querySelector('input.search').addEventListener('keyup', function(e){
+        var search_str = e.target.value.trim();
+        var list;
+        if (search_str.length != 0) {
+          //hide list
+          document.querySelector('.all_result').classList.add('hidden');
+          //hide shortcuts
+          document.querySelector('.shortcuts_ctn').classList.add('hidden');
+          //filter list
+          list = generate_filtered_list(dict_map, search_str);
+          //set result list
+          var search_result = document.querySelector('.search_result');
+          while(search_result.lastChild){
+            search_result.removeChild(search_result.lastChild);
+          }
+          search_result.appendChild(list);
+          //show result list
+          document.querySelector('.search_result').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('.all_result').classList.remove('hidden');
+          document.querySelector('.shortcuts_ctn').classList.remove('hidden');
+          document.querySelector('.search_result').classList.add('hidden');
+        }
+      })
+  </script>
+</body>
+</html>
