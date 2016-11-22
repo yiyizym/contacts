@@ -28,14 +28,19 @@
         }
         var ctn = document.createElement('div');
         ctn.classList.add('shortcuts_ctn');
+        var test,a;
         items.forEach(function(item){
-          var text = document.createTextNode(item);
-          var a = document.createElement('a');
+          text = document.createTextNode(item);
+          a = document.createElement('a');
           a.setAttribute('href', '#hook_' + item);
           a.setAttribute('rel', 'internal');
           a.appendChild(text);
           ctn.appendChild(a);
         });
+        a = document.createElement('a');
+        a.setAttribute('href', '#hook_search');
+        a.setAttribute('rel', 'internal');
+        ctn.insertBefore(a, ctn.firstChild);
         document.body.appendChild(ctn);
       }
       function generate_list(map){
@@ -88,6 +93,7 @@
         ctn.classList.add('container');
         var input = document.createElement('input');
         input.classList.add('search');
+        input.setAttribute('id','hook_search');
         input.setAttribute('placeholder', '搜索');
         ctn.appendChild(input);
         var search_result = document.createElement('div');
