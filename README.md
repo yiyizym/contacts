@@ -14,13 +14,13 @@ under developing, it's just a demo now.
 - [x] 顶栏显示
 - [x] 滚动流畅不卡
 - [x] 搜索联系人
-- [ ] 做成原生插件
+- [x] 做成原生插件
 - [ ] 仿照微信联系人UI
 - [ ] 对输入数据排序
 
 ## 用法
 
-TODO
+参照 index.html
 
 **license**
 
