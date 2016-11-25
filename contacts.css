@@ -5,7 +5,7 @@
 .page {
   height: 10000px;
 }
-.shortcuts_ctn {
+.shortcuts-ctn {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
@@ -14,22 +14,22 @@
   flex-direction: column;
   text-align: center;
 }
-.shortcuts_ctn > a {
+.shortcuts-ctn > a {
   width: 30px;
   height: 20px;
   text-align: center;
   text-decoration: none;
   color: #999;
 }
-.shortcuts_ctn > a[href="#hook_search"] {
+.shortcuts-ctn > a[href="#hook-search"] {
   border: 2px solid #999;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  transform: translateX(80%);
+  transform: translate(80%,-50%);
 }
 
-.shortcuts_ctn > a[href="#hook_search"]::after {
+.shortcuts-ctn > a[href="#hook-search"]::after {
   content: '';
   display: block;
   width: 5px;
@@ -67,14 +67,14 @@ input.search {
 .list li[id*=hook] + li {
   border-top: none;
 }
-.list li.on_top {
+.list li.on-top {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-.search_result .list li {
+.search-result .list li {
   border-top: none;
   border-bottom: 1px solid #eee;
 }
