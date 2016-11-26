@@ -10,7 +10,6 @@
   Contacts.prototype = {
     opts: {
       appendTo: '',
-      clz: 'wx_contacts',
       data: []
     },
     merge: function(defaultOpts, userOpts){
@@ -24,7 +23,7 @@
 
       var list = this.generateList();
       var ctn = this.generateCtn();
-      ctn.querySelector('.all-result').appendChild(list);
+      ctn.querySelector('.wx-contacts-all-result').appendChild(list);
 
       var appendTo = this.opts.appendTo || 'body'
       document.querySelector(appendTo).appendChild(ctn);
@@ -62,18 +61,18 @@
         }
       }
       var ctn = document.createElement('div');
-      ctn.classList.add('shortcuts-ctn');
+      ctn.classList.add('wx-contacts-shortcuts-ctn');
       var test,a;
       items.forEach(function(item){
         text = document.createTextNode(item);
         a = document.createElement('a');
-        a.setAttribute('href', '#hook-' + item);
+        a.setAttribute('href', '#wx-contacts-hook-' + item);
         a.setAttribute('rel', 'internal');
         a.appendChild(text);
         ctn.appendChild(a);
       });
       a = document.createElement('a');
-      a.setAttribute('href', '#hook-search');
+      a.setAttribute('href', '#wx-contacts-hook-search');
       a.setAttribute('rel', 'internal');
       ctn.insertBefore(a, ctn.firstChild);
       document.body.appendChild(ctn);
@@ -82,17 +81,19 @@
       var map = this.dictMap;
       var formerKey = null;
       var list = document.createElement('ul');
-      list.classList.add('list');
+      list.classList.add('wx-contacts-list');
       for(var key in map) {
         if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
           var items = map[key];
           items.forEach(function(item){
-            var text,li;
+            var text,li,a;
             if(key != formerKey){
+              a = document.createElement('a');
+              a.setAttribute('id', 'wx-contacts-hook-' + key);
               text = document.createTextNode(key);
               li = document.createElement('li');
-              li.classList.add('hooks');
-              li.setAttribute('id', 'hook-' + key);
+              li.classList.add('wx-contacts-hooks');
+              li.appendChild(a);
               li.appendChild(text);
               list.appendChild(li);
               formerKey = key;
@@ -108,23 +109,23 @@
     },
     generateCtn: function(){
       var ctn = document.createElement('div');
-      ctn.classList.add('container');
+      ctn.classList.add('wx-contacts-container');
       var input = document.createElement('input');
-      input.classList.add('search');
-      input.setAttribute('id','hook-search');
+      input.classList.add('wx-contacts-search');
+      input.setAttribute('id','wx-contacts-hook-search');
       input.setAttribute('placeholder', '搜索');
       ctn.appendChild(input);
       var searchResult = document.createElement('div');
-      searchResult.classList.add('search-result');
+      searchResult.classList.add('wx-contacts-search-result');
       ctn.appendChild(searchResult);
       var allResult = document.createElement('div');
-      allResult.classList.add('all-result');
+      allResult.classList.add('wx-contacts-all-result');
       ctn.appendChild(allResult);
       return ctn;
     },
     generateFilteredList: function(map, filter_str){
       var list = document.createElement('ul');
-      list.classList.add('list');
+      list.classList.add('wx-contacts-list');
       var li;
       for( var key in map){
         if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
@@ -170,7 +171,7 @@
       return MAP[idx];
     },
     getAllAnchorPositions: function(){
-      var anchors = document.querySelectorAll('.hooks');
+      var anchors = document.querySelectorAll('.wx-contacts-hooks');
       var self = this;
       self.positions = [];
       anchors = [].slice.call(anchors);
@@ -211,38 +212,38 @@
             //do some thing here
             
             self.positions.forEach(function(item){
-              item.anchor.classList.remove('on-top');
+              item.anchor.classList.remove('wx-contacts-on-top');
             });
             topBarElement = self.getTopbarElement(lastKnownScrollPosition);
-            topBarElement && topBarElement.classList.add('on-top');
+            topBarElement && topBarElement.classList.add('wx-contacts-on-top');
             ticking = false;
           });
         }
         ticking = true;
       });
-      document.querySelector('input.search').addEventListener('keyup', function(e){
+      document.querySelector('input.wx-contacts-search').addEventListener('change', function(e){
         var searchStr = e.target.value.trim();
         var list;
         if (searchStr.length != 0) {
           //hide list
-          document.querySelector('.all-result').classList.add('hidden');
+          document.querySelector('.wx-contacts-all-result').classList.add('hidden');
           //hide shortcuts
-          document.querySelector('.shortcuts-ctn').classList.add('hidden');
+          document.querySelector('.wx-contacts-shortcuts-ctn').classList.add('hidden');
           //filter list
           list = self.generateFilteredList(self.dictMap, searchStr);
           //set result list
-          var searchResult = document.querySelector('.search-result');
+          var searchResult = document.querySelector('.wx-contacts-search-result');
           while(searchResult.lastChild){
             searchResult.removeChild(searchResult.lastChild);
           }
           searchResult.appendChild(list);
           //show result list
-          document.querySelector('.search-result').classList.remove('hidden');
+          document.querySelector('.wx-contacts-search-result').classList.remove('hidden');
         }
         else {
-          document.querySelector('.all-result').classList.remove('hidden');
-          document.querySelector('.shortcuts-ctn').classList.remove('hidden');
-          document.querySelector('.search-result').classList.add('hidden');
+          document.querySelector('.wx-contacts-all-result').classList.remove('hidden');
+          document.querySelector('.wx-contacts-shortcuts-ctn').classList.remove('hidden');
+          document.querySelector('.wx-contacts-search-result').classList.add('hidden');
         }
       });
     }
