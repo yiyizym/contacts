@@ -1,6 +1,6 @@
-# contacts 联系人/通讯录
+# contacts 联系人/通讯录 插件
 
-用于手机web端，带索引的联系人/通讯录 组件。
+javascript 实现微信通讯录，联系人按拼音首字母从A到Z分组排序/搜索过滤联系人
 
 ![预览](http://ww4.sinaimg.cn/large/60cdc5a5gw1fa5mumuv6sg20aw0j0kjm.gif)
 
