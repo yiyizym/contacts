@@ -2,10 +2,7 @@
   display: none!important;
 }
 
-.page {
-  height: 10000px;
-}
-.shortcuts_ctn {
+.wx-contacts-shortcuts-ctn {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
@@ -14,22 +11,22 @@
   flex-direction: column;
   text-align: center;
 }
-.shortcuts_ctn > a {
+.wx-contacts-shortcuts-ctn > a {
   width: 30px;
   height: 20px;
   text-align: center;
   text-decoration: none;
   color: #999;
 }
-.shortcuts_ctn > a[href="#hook_search"] {
+.wx-contacts-shortcuts-ctn > a[href="#wx-contacts-hook-search"] {
   border: 2px solid #999;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  transform: translateX(80%);
+  transform: translate(80%,-50%);
 }
 
-.shortcuts_ctn > a[href="#hook_search"]::after {
+.wx-contacts-shortcuts-ctn > a[href="#wx-contacts-hook-search"]::after {
   content: '';
   display: block;
   width: 5px;
@@ -38,7 +35,38 @@
   transform: rotate(45deg) translate(140%,110%);
 }
 
-input.search {
+.wx-contacts-list {
+  position: relative;
+  padding: 0px;
+  list-style-type: none;
+}
+.wx-contacts-list li {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border-top: 1px solid #eee;
+}
+.wx-contacts-list li.wx-contacts-hooks {
+  height: 20px;
+  line-height: 20px;
+  background-color: #eee;
+  border-top: none;
+}
+.wx-contacts-list li.wx-contacts-hooks + li {
+  border-top: none;
+}
+
+.wx-contacts-list li.wx-contacts-on-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.wx-contacts-list li.wx-contacts-on-top + li {
+  padding-top: 20px;
+}
+
+input.wx-contacts-search {
   width: 100%;
   height: 40px;
   line-height: 40px;
@@ -47,34 +75,7 @@ input.search {
   font-size: 16px;
   outline: none;
 }
-.list {
-  position: relative;
-  padding: 0px;
-  list-style-type: none;
-}
-.list li {
-  height: 40px;
-  line-height: 40px;
-  padding-left: 10px;
-  border-top: 1px solid #eee;
-}
-.list li[id*=hook] {
-  height: 20px;
-  line-height: 20px;
-  background-color: #eee;
-  border-top: none;
-}
-.list li[id*=hook] + li {
-  border-top: none;
-}
-.list li.on_top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.search_result .list li {
+.wx-contacts-search-result .wx-contacts-list li {
   border-top: none;
   border-bottom: 1px solid #eee;
 }
