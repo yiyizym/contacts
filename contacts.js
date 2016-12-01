@@ -25,7 +25,7 @@
       var ctn = this.generateCtn();
       ctn.querySelector('.wx-contacts-all-result').appendChild(list);
 
-      var appendTo = this.opts.appendTo || 'body'
+      var appendTo = this.opts.appendTo || 'body';
       document.querySelector(appendTo).appendChild(ctn);
 
       this.getAllAnchorPositions();
@@ -110,11 +110,7 @@
     generateCtn: function(){
       var ctn = document.createElement('div');
       ctn.classList.add('wx-contacts-container');
-      var input = document.createElement('input');
-      input.classList.add('wx-contacts-search');
-      input.setAttribute('id','wx-contacts-hook-search');
-      input.setAttribute('placeholder', '搜索');
-      ctn.appendChild(input);
+      ctn.appendChild(this.generateInputCtn());
       var searchResult = document.createElement('div');
       searchResult.classList.add('wx-contacts-search-result');
       ctn.appendChild(searchResult);
@@ -122,6 +118,25 @@
       allResult.classList.add('wx-contacts-all-result');
       ctn.appendChild(allResult);
       return ctn;
+    },
+    generateInputCtn: function(){
+      var div = document.createElement('div');
+      div.classList.add('wx-contacts-search-bar');
+      div.setAttribute('id','wx-contacts-hook-search');
+      var innerHtml = 
+        '<div class="wx-contacts-search-inner">' +
+          '<i class="wx-contacts-icon-search"></i>' +
+          '<input type="search" class="wx-contacts-search-input" id="wx-contacts-search-input" placeholder="搜索" required/>' +
+          '<a href="javascript:" class="wx-contacts-icon-clear hidden" id="search-clear"></a>' +
+        '</div>' +
+        '<label for="wx-contacts-search-input" class="wx-contacts-search-text">' +
+          '<i class="wx-contacts-icon-search"></i>' +
+          '<span>搜索</span>' +
+        '</label>';
+
+        div.innerHTML = innerHtml;
+
+        return div;
     },
     generateFilteredList: function(map, filter_str){
       var list = document.createElement('ul');
@@ -136,7 +151,7 @@
               li.appendChild(document.createTextNode(item));
               list.appendChild(li);
             }
-          })
+          });
         }
       }
       return list;
@@ -221,7 +236,7 @@
         }
         ticking = true;
       });
-      document.querySelector('input.wx-contacts-search').addEventListener('change', function(e){
+      document.querySelector('#wx-contacts-search-input').addEventListener('change', function(e){
         var searchStr = e.target.value.trim();
         var list;
         if (searchStr.length != 0) {
@@ -246,8 +261,42 @@
           document.querySelector('.wx-contacts-search-result').classList.add('hidden');
         }
       });
+
+      document.querySelector('#wx-contacts-search-input').addEventListener('keyup', function(e){
+        var searchStr = e.target.value.trim();
+        if(searchStr.length != 0){
+          document.querySelector('#search-clear').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('#search-clear').classList.add('hidden');
+        }
+      });
+
+      document.querySelector('#wx-contacts-search-input').addEventListener('focus', function(){
+        document.querySelector('.wx-contacts-search-bar').classList.add('wx-contacts-search-focusing');
+        if(this.value){
+          document.querySelector('#search-clear').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('#search-clear').classList.add('hidden');
+        }
+      });
+
+      document.querySelector('#wx-contacts-search-input').addEventListener('blur', function(e){
+        document.querySelector('.wx-contacts-search-bar').classList.remove('wx-contacts-search-focusing');
+        if (this.value) {
+          document.querySelector('.wx-contacts-search-text').classList.add('hidden');
+        } else {
+          document.querySelector('.wx-contacts-search-text').classList.remove('hidden');
+        }
+      });
+
+      document.querySelector('#search-clear').addEventListener('touchend', function(){
+        document.querySelector('#wx-contacts-search-input').value = '';
+      });
+
     }
-  }
+  };
 
   global.Contacts = Contacts;
 })(window);
