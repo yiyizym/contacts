@@ -127,7 +127,7 @@
         '<div class="wx-contacts-search-inner">' +
           '<i class="wx-contacts-icon-search"></i>' +
           '<input type="search" class="wx-contacts-search-input" id="wx-contacts-search-input" placeholder="搜索" required/>' +
-          '<a href="javascript:" class="wx-contacts-icon-clear" id="search-clear"></a>' +
+          '<a href="javascript:" class="wx-contacts-icon-clear hidden" id="search-clear"></a>' +
         '</div>' +
         '<label for="wx-contacts-search-input" class="wx-contacts-search-text">' +
           '<i class="wx-contacts-icon-search"></i>' +
@@ -220,63 +220,79 @@
       var ticking = false;
       var topBarElement = null;
       var self = this;
-      // window.addEventListener('scroll', function(e){
-      //   lastKnownScrollPosition = window.scrollY;
-      //   if(!ticking) {
-      //     window.requestAnimationFrame(function(){
-      //       //do some thing here
+      window.addEventListener('scroll', function(e){
+        lastKnownScrollPosition = window.scrollY;
+        if(!ticking) {
+          window.requestAnimationFrame(function(){
+            //do some thing here
             
-      //       self.positions.forEach(function(item){
-      //         item.anchor.classList.remove('wx-contacts-on-top');
-      //       });
-      //       topBarElement = self.getTopbarElement(lastKnownScrollPosition);
-      //       topBarElement && topBarElement.classList.add('wx-contacts-on-top');
-      //       ticking = false;
-      //     });
-      //   }
-      //   ticking = true;
-      // });
-      // document.querySelector('input.wx-contacts-search').addEventListener('change', function(e){
-      //   var searchStr = e.target.value.trim();
-      //   var list;
-      //   if (searchStr.length != 0) {
-      //     //hide list
-      //     document.querySelector('.wx-contacts-all-result').classList.add('hidden');
-      //     //hide shortcuts
-      //     document.querySelector('.wx-contacts-shortcuts-ctn').classList.add('hidden');
-      //     //filter list
-      //     list = self.generateFilteredList(self.dictMap, searchStr);
-      //     //set result list
-      //     var searchResult = document.querySelector('.wx-contacts-search-result');
-      //     while(searchResult.lastChild){
-      //       searchResult.removeChild(searchResult.lastChild);
-      //     }
-      //     searchResult.appendChild(list);
-      //     //show result list
-      //     document.querySelector('.wx-contacts-search-result').classList.remove('hidden');
-      //   }
-      //   else {
-      //     document.querySelector('.wx-contacts-all-result').classList.remove('hidden');
-      //     document.querySelector('.wx-contacts-shortcuts-ctn').classList.remove('hidden');
-      //     document.querySelector('.wx-contacts-search-result').classList.add('hidden');
-      //   }
-      // });
+            self.positions.forEach(function(item){
+              item.anchor.classList.remove('wx-contacts-on-top');
+            });
+            topBarElement = self.getTopbarElement(lastKnownScrollPosition);
+            topBarElement && topBarElement.classList.add('wx-contacts-on-top');
+            ticking = false;
+          });
+        }
+        ticking = true;
+      });
+      document.querySelector('#wx-contacts-search-input').addEventListener('change', function(e){
+        var searchStr = e.target.value.trim();
+        var list;
+        if (searchStr.length != 0) {
+          //hide list
+          document.querySelector('.wx-contacts-all-result').classList.add('hidden');
+          //hide shortcuts
+          document.querySelector('.wx-contacts-shortcuts-ctn').classList.add('hidden');
+          //filter list
+          list = self.generateFilteredList(self.dictMap, searchStr);
+          //set result list
+          var searchResult = document.querySelector('.wx-contacts-search-result');
+          while(searchResult.lastChild){
+            searchResult.removeChild(searchResult.lastChild);
+          }
+          searchResult.appendChild(list);
+          //show result list
+          document.querySelector('.wx-contacts-search-result').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('.wx-contacts-all-result').classList.remove('hidden');
+          document.querySelector('.wx-contacts-shortcuts-ctn').classList.remove('hidden');
+          document.querySelector('.wx-contacts-search-result').classList.add('hidden');
+        }
+      });
+
+      document.querySelector('#wx-contacts-search-input').addEventListener('keyup', function(e){
+        var searchStr = e.target.value.trim();
+        if(searchStr.length != 0){
+          document.querySelector('#search-clear').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('#search-clear').classList.add('hidden');
+        }
+      });
 
       document.querySelector('#wx-contacts-search-input').addEventListener('focus', function(){
         document.querySelector('.wx-contacts-search-bar').classList.add('wx-contacts-search-focusing');
+        if(this.value){
+          document.querySelector('#search-clear').classList.remove('hidden');
+        }
+        else {
+          document.querySelector('#search-clear').classList.add('hidden');
+        }
       });
 
       document.querySelector('#wx-contacts-search-input').addEventListener('blur', function(e){
         document.querySelector('.wx-contacts-search-bar').classList.remove('wx-contacts-search-focusing');
-        // if (this.value) {
-        //   document.querySelector('#search-text').classList.add('hidden');
-        // } else {
-        //   document.querySelector('#search-text').classList.remove('hidden');
-        // }
+        if (this.value) {
+          document.querySelector('.wx-contacts-search-text').classList.add('hidden');
+        } else {
+          document.querySelector('.wx-contacts-search-text').classList.remove('hidden');
+        }
       });
 
-      document.querySelector('#wx-contacts-search-input').addEventListener('touchend', function(){
-        document.querySelector('#wx-contacts-search-input').val('');
+      document.querySelector('#search-clear').addEventListener('touchend', function(){
+        document.querySelector('#wx-contacts-search-input').value = '';
       });
 
     }

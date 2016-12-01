@@ -137,18 +137,45 @@ input.wx-contacts-search {
     outline: none;
 }
 
+/* webkit 内核浏览器 type=search 的 input 自带 取消 按钮*/
+.wx-contacts-search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
 .wx-contacts-icon-clear {
   position: absolute;
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #dcdcdc;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #999;
   border-radius: 50%;
-  background: #ddd;
+  background: #999;
   z-index: 1;
+}
+
+.wx-contacts-icon-clear::before {
+  content: "";
+  width: 1px;
+  height: 80%;
+  background-color: white;
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: 50%;
+  top: 50%;
+}
+
+.wx-contacts-icon-clear::after {
+  content: "";
+  width: 1px;
+  height: 80%;
+  background-color: white;
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  left: 50%;
+  top: 50%;
 }
 
 .wx-contacts-search-text {
