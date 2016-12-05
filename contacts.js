@@ -10,6 +10,7 @@
   Contacts.prototype = {
     opts: {
       appendTo: '',
+      generateListItem: null,
       data: []
     },
     merge: function(defaultOpts, userOpts){
@@ -42,7 +43,7 @@
       map['#'] = [];
       var firstCharUpper;
       data.forEach(function(item){
-        firstCharUpper = self.getFirstUpperChar(item);
+        firstCharUpper = self.getFirstUpperChar(item.name);
         if (map.hasOwnProperty(firstCharUpper)) {
           map[firstCharUpper].push(item);
         } else {
@@ -78,7 +79,8 @@
       document.body.appendChild(ctn);
     },
     generateList: function(){
-      var map = this.dictMap;
+      var self = this;
+      var map = self.dictMap;
       var formerKey = null;
       var list = document.createElement('ul');
       list.classList.add('wx-contacts-list');
@@ -98,14 +100,20 @@
               list.appendChild(li);
               formerKey = key;
             }
-            text = document.createTextNode(item);
-            li = document.createElement('li');
-            li.appendChild(text);
-            list.appendChild(li);
+            list.appendChild(self.generateListItem(item));
           });
         }
       }
       return list;
+    },
+    generateListItem: function(item){
+      if(this.opts.generateListItem && typeof this.opts.generateListItem == 'function'){
+        return this.opts.generateListItem(item);
+      }
+      var tpl = '<img class="wx-contacts-badge" src="' + item.badge +'"></img><span>'+ item.name + '</span>';
+      var li = document.createElement('li');
+      li.innerHTML = tpl;
+      return li;
     },
     generateCtn: function(){
       var ctn = document.createElement('div');

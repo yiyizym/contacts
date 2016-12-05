@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="contacts.css">
   <script src="contacts.js"></script>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
     .page {
       height: 10000px;
     }
@@ -19,8 +23,121 @@
   <script>
     Contacts({
       appendTo: '.page',
-      clz: 'wx_contacts',
-      data: ['banana','cat','egg','farmer','food','jeep','joke','lisa','low','jude','apple',1,'2','谭小生', '张中','李大哥','江东父老','福康安','陈云','宝玉','曹方','郑智','冯年过节','贾定春','罗生门','刘安','朱卫生','阿诚']
+      generateListItem: null,
+      data: [
+        {
+          name:'banana',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'cat',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'egg',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'farmer',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'food',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'jeep',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'joke',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'lisa',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'low',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'jude',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'apple',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'1',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'2',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'谭小生',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name: '张中',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'李大哥',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'江东父老',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'福康安',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'陈云',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'宝玉',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'曹方',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'郑智',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'冯年过节',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'贾定春',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'罗生门',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'刘安',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'朱卫生',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        },
+        {
+          name:'阿诚',
+          badge: 'http://www.freeiconspng.com/uploads/pikachu-png-icon-7.png'
+        }
+      ]
     });
   </script>
 </body>

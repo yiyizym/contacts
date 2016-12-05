@@ -2,6 +2,10 @@
   display: none!important;
 }
 
+.wx-contacts-container {
+  font-family: 'Microsoft YaHei';
+}
+
 .wx-contacts-shortcuts-ctn {
   position: fixed;
   top: 50%;
@@ -10,6 +14,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  font-family: 'Microsoft YaHei';
 }
 .wx-contacts-shortcuts-ctn > a {
   width: 30px;
@@ -41,15 +46,17 @@
   list-style-type: none;
 }
 .wx-contacts-list li {
+  display: flex;
+  align-items: center;
   height: 40px;
-  line-height: 40px;
   padding-left: 10px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #EFEFF4;
 }
 .wx-contacts-list li.wx-contacts-hooks {
+  display: block;
   height: 20px;
   line-height: 20px;
-  background-color: #eee;
+  background-color: #EFEFF4;
   border-top: none;
 }
 .wx-contacts-list li.wx-contacts-hooks + li {
@@ -71,13 +78,20 @@ input.wx-contacts-search {
   height: 40px;
   line-height: 40px;
   border: none;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #EFEFF4;
   font-size: 16px;
   outline: none;
 }
 .wx-contacts-search-result .wx-contacts-list li {
   border-top: none;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #EFEFF4;
+}
+
+.wx-contacts-badge {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }
 
 .wx-contacts-search-bar {
