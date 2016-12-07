@@ -154,9 +154,9 @@
         if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
           var items = map[key];
           items.forEach(function(item){
-            if (String(item).match(filter_str)) {
+            if (String(item.name).match(filter_str)) {
               li = document.createElement('li')
-              li.appendChild(document.createTextNode(item));
+              li.appendChild(document.createTextNode(item.name));
               list.appendChild(li);
             }
           });

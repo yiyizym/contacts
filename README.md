@@ -2,7 +2,7 @@
 
 javascript 实现微信通讯录，联系人按拼音首字母从A到Z分组排序/搜索过滤联系人
 
-![预览](http://ww4.sinaimg.cn/large/60cdc5a5gw1fa5mumuv6sg20aw0j0kjm.gif)
+![预览](http://ww2.sinaimg.cn/mw690/60cdc5a5gw1faii44zp40g20aq0iuqv7.gif)
 
 ## 状态
 
