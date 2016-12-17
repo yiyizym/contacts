@@ -50,6 +50,16 @@
           map['#'].push(item);
         }
       });
+
+      //排序
+      for(var key in map) {
+        if( map.hasOwnProperty( key ) && (map[key].length != 0)) {
+          map[key].sort(function(a, b){
+            return a.name.localeCompare(b.name, 'zh-CN-u-co-pinyin');
+          });
+        }
+      }
+
       this.dictMap = map;
       return map;
     },
@@ -174,7 +184,7 @@
         return this.chineseToEnglish(c);
       }
     },
-    // copy from https://ruby-china.org/topics/29026
+    // adopt from https://ruby-china.org/topics/29026
     chineseToEnglish: function(c){
       var idx = -1;
       var MAP = 'ABCDEFGHJKLMNOPQRSTWXYZ';
